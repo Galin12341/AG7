@@ -1,0 +1,30 @@
+name: Update Activity Log
+
+on:
+  schedule:
+    # 每 6 小時執行一次（UTC 時間）
+    - cron: '0 */6 * * *'
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  update-activity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: 📊 Update activity log
+        uses: TheDanniCraft/activity-log@v1
+        with:
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          
+      - name: 💾 Commit and push if changed
+        run: |
+          git config --global user.name 'Activity Bot'
+          git config --global user.email 'bot@github-actions'
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Update activity log [automated]" && git push)
