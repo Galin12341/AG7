@@ -6,5 +6,4 @@
 5. 📝 Committed to a private repo
 6. 📝 Committed to a private repo
 7. 🎉 Created a new branch `main` in a private repo
-8. 🎉 Created a new branch `main` in a private repo
 <!--END_SECTION:activity-->
